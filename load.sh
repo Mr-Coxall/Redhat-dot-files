@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# you will need to install git, to even get this repo
+sudo yum install git -y
+
 # you will need to change permissions on the file before you can run it
 # chmod +x ./load.sh
 
@@ -11,12 +14,13 @@
 
 # update and upgrade system
 echo Update and upgrade system
-sudo apt-get update && sudo apt-get dist-upgrade
+sudo yum check-update
+sudo yum -y upgrade
 
 # load some programs
 echo Load programs
-sudo apt install tree
-sudo apt install unzip
+sudo yum install tree -y
+# sudo apt install unzip
 
 # load .vimrc file
 echo Load .vimrc file
@@ -36,30 +40,29 @@ cp ./swift.yml ~/scripts/swift.yml
 
 # load YouCompleteMe
 echo Load YouCompleteMe plugin for Vim
-sudo apt install vim-youcompleteme
-vim-addon-manager install youcompleteme
+# sudo apt install vim-youcompleteme
+# vim-addon-manager install youcompleteme
 
 # load java programming software
 echo load Java
-sudo apt install default-jdk
+sudo amazon-linux-extras install java-openjdk11 -y
 
 # loading checkstyle for java
 # https://github.com/checkstyle/checkstyle/releases
 echo load CheckStyle for Java
 wget https://github.com/checkstyle/checkstyle/releases/download/checkstyle-8.44/checkstyle-8.44-all.jar
 cp ./checkstyle-8.44-all.jar ~/scripts/checkstyle.jar
-wget https://raw.githubusercontent.com/Mr-Coxall/dot_files/main/mr-coxall_checks.xml
 cp ./mr-coxall_checks.xml ~/scripts/
 
 
 # you might need to get a newer version of swift
 # https://swift.org/download/
 echo load Swift
-sudo apt-get install -y clang libblocksruntime0 libcurl4-openssl-dev
-wget https://swift.org/builds/swift-5.4.1-release/ubuntu2004/swift-5.4.1-RELEASE/swift-5.4.1-RELEASE-ubuntu20.04.tar.gz
-tar -zxvf swift-5.4.1-RELEASE-ubuntu20.04.tar.gz
+sudo yum install -y binutils gcc glibc-static libbsd libcurl libedit libicu libsqlite libstdc++-static libuuid libxml2 tar tzdata
+wget https://swift.org/builds/swift-5.4.2-release/amazonlinux2/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-amazonlinux2.tar.gz
+tar -zxvf swift-5.4.2-RELEASE-amazonlinux2.tar.gz
 sudo mkdir /usr/bin/swift
-sudo cp -R ./swift-5.4.1-RELEASE-ubuntu20.04/usr/* /usr/bin/swift
+sudo cp -R ./swift-5.4.2-RELEASE-amazonlinux2/usr/* /usr/bin/swift
 echo "" >> ~/.bashrc
 echo 'export PATH="${PATH}":/usr/bin/swift/bin' >> ~/.bashrc
 
@@ -96,17 +99,15 @@ echo "" >> ~/.bashrc
 echo "PS1='\[\033[01;32m\]\u:\[\033[01;34m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ '" >> ~/.bashrc
 echo "PROMPT_DIRTRIM=1" >> ~/.bashrc
 
-# update Git
-echo upgrade Git
-sudo add-apt-repository ppa:git-core/ppa
-sudo apt-get update
-sudo apt-get install git
-
 # load GitHub CLI
+# from: https://computingforgeeks.com/how-to-install-github-cli-on-linux-and-windows/
 echo load GitHub CLI
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-sudo apt-add-repository https://cli.github.com/packages
-sudo apt install gh
+VERSION=`curl  "https://api.github.com/repos/cli/cli/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c2-`
+echo $VERSION
+wget https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_linux_amd64.tar.gz
+tar xvf gh_${VERSION}_linux_amd64.tar.gz
+sudo cp gh_${VERSION}_linux_amd64/bin/gh /usr/local/bin/
+gh --version
 
 
 # reboot
@@ -133,4 +134,4 @@ gh auth login
 # use existing GitHub SSH keys
 
 # then remove the dot_files firectory 
-sudo rm -R ~/dot_files
+sudo rm -R ~/Redhat-dot-files
