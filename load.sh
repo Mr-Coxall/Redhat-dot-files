@@ -116,15 +116,6 @@ tar xvf gh_${VERSION}_linux_amd64.tar.gz
 sudo cp gh_${VERSION}_linux_amd64/bin/gh /usr/local/bin/
 gh --version
 
-# provision GitHub
-ssh-keygen -t ed25519 -C "mr.coxall@mths.ca"
-eval "$(ssh-agent -s)"
-# then copy public key over to GitHub SSH keys
-cat ~/.ssh/id_ ... .pub
-# to test it out
-ssh -T git@github.com
-git config --global --edit
-
 
 # reboot
 echo ---
