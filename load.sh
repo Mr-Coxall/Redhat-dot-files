@@ -56,7 +56,8 @@ cp ./mr-coxall_checks.xml ~/scripts/
 # you might need to get a newer version of swift
 # https://swift.org/download/
 echo load Swift
-sudo yum install -y binutils gcc glibc-static libbsd libcurl libedit libicu libsqlite libstdc++-static libuuid libxml2 tar tzdata
+# sudo yum install -y binutils gcc glibc-static libbsd libcurl libedit libicu libsqlite libstdc++-static libuuid libxml2 tar tzdata
+sudo yum install -y binutils gcc glibc-static libcurl libedit libicu libstdc++-static libuuid libxml2 tar tzdata
 wget https://swift.org/builds/swift-5.4.2-release/amazonlinux2/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-amazonlinux2.tar.gz
 tar -zxvf swift-5.4.2-RELEASE-amazonlinux2.tar.gz
 sudo mkdir /usr/bin/swift
