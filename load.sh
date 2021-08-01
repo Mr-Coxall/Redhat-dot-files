@@ -1,13 +1,11 @@
 #!/bin/bash
 
 # you will need to install git, to even get this repo
-sudo yum install git -y
+# run ...
+# sudo yum install git -y
 
 # you will need to change permissions on the file before you can run it
 # chmod +x ./load.sh
-
-# then run this (so you do not have to type "yes" 3 times while it is running):
-# yes yes yes | ./load.sh
 
 # then at the end, reboot for everything to take effect
 # sudo reboot now
