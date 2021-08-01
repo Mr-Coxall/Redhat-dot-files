@@ -44,6 +44,7 @@ echo Load YouCompleteMe plugin for Vim
 # load java programming software
 echo load Java
 sudo amazon-linux-extras install java-openjdk11 -y
+sudo yum install java-11-openjdk-devel
 
 # loading checkstyle for java
 # https://github.com/checkstyle/checkstyle/releases
