@@ -99,6 +99,13 @@ echo "" >> ~/.bashrc
 echo "PS1='\[\033[01;32m\]\u:\[\033[01;34m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ '" >> ~/.bashrc
 echo "PROMPT_DIRTRIM=1" >> ~/.bashrc
 
+echo ""
+echo "# some more ls aliases"
+echo "alias ll='ls -alF'"
+echo "alias la='ls -A'"
+echo "alias l='ls -CF'"
+
+
 # load GitHub CLI
 # from: https://computingforgeeks.com/how-to-install-github-cli-on-linux-and-windows/
 echo load GitHub CLI
@@ -108,6 +115,15 @@ wget https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_linu
 tar xvf gh_${VERSION}_linux_amd64.tar.gz
 sudo cp gh_${VERSION}_linux_amd64/bin/gh /usr/local/bin/
 gh --version
+
+# provision GitHub
+ssh-keygen -t ed25519 -C "mr.coxall@mths.ca"
+eval "$(ssh-agent -s)"
+# then copy public key over to GitHub SSH keys
+cat ~/.ssh/id_ ... .pub
+# to test it out
+ssh -T git@github.com
+git config --global --edit
 
 
 # reboot
